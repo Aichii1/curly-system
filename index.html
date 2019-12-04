@@ -17,14 +17,7 @@
   var map = L.map('map').setView([58.3934, 13.851], 15);
  
 //GeoJson
-    L.geoJSON(stationer, {
-    style: function (feature) {
-        return {color: feature.properties.color};
-    }
-}).bindPopup(function (layer) {
-    return layer.feature.properties.description;
-}).addTo(map);
-
+new L.GeoJSON(stationer).addTo(map);
     
     
 // load a tile layer
