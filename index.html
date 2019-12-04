@@ -16,9 +16,18 @@
   // initialize the map
   var map = L.map('map').setView([58.3934, 13.851], 15);
  
+//GeoJson
+    L.geoJSON(stationer, {
+    style: function (feature) {
+        return {color: feature.properties.color};
+    }
+}).bindPopup(function (layer) {
+    return layer.feature.properties.description;
+}).addTo(map);
 
+    
+    
 // load a tile layer
-L.marker([58.3934, 13.851]).addTo(map);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
