@@ -15,9 +15,19 @@
 
   // initialize the map
   var map = L.map('map').setView([58.3934, 13.851], 15);
- 
+
+    function fetchJSON(url) {
+    return fetch(url)
+    .then(function(response) {
+      return response.json();
+    });
+}
+
+
+var data = fetchJSON('/stationer.geojson');
+    
 //GeoJson
-new L.GeoJSON(stationer).addTo(map);
+new L.GeoJSON(data).addTo(map);
     
     
 // load a tile layer
