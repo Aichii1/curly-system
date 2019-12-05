@@ -1,50 +1,3621 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=1024, user-scalable=no">
-    <style>
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0;}
-      #map{ height: 100% }
-    </style>
-    <link rel="stylesheet" href="leaflet.css" />
-<!--[if lte IE 8]>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.ie.css" />
-<![endif]-->
+  <title>A Leaflet map!</title>
+  <link rel="stylesheet" href="https://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+  <script src="https://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  <style>
+    #map{ width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
 
-<script src="leaflet-src.js"></script>
-<script type="text/javascript" src="../dist/leaflet.ajax.js"></script>
-<script src="spin.js"></script>
-<script src="leaflet.spin.js"></script>
+  <div id="map"></div>
+
+  <script>
+
+  // initialize the map
+  var map = L.map('map').setView([58.3934, 13.851], 15);
 
 
-
-
-    <title>Leaflet AJAX</title>
-    </head>
-    <body>
-    <div id="map"></div>
-      <script type="text/javascript">var m= L.map('map').setView([42.2, -71], 8);
-var mopt = {
-    url: 'https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY3dtIiwiYSI6InFoYkpvS00ifQ.WHqQ_q865NKjIQB6Wpoi2w',
-    options: {attribution:'© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}
-  };
-var mq=L.tileLayer(mopt.url,mopt.options);
-mq.addTo(m);
-function popUp(f,l){
-    var out = [];
-    if (f.properties){
-        for(key in f.properties){
-            out.push(key+": "+f.properties[key]);
-        }
-        l.bindPopup(out.join("<br />"));
+    
+//GeoJson  Var
+    var stationer={
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8409666228158,
+          58.3875056636953
+        ]
+      },
+      "properties": {
+        "nref": "CF",
+        "nnamn": "CENTRALA FÖRDELNINGS",
+        "idcadra": 142
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8049159516994,
+          58.4198183914467
+        ]
+      },
+      "properties": {
+        "nref": "N001",
+        "nnamn": "HÖJENTORP",
+        "idcadra": 110,
+        "btkod": "PLK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.7675835831161,
+          58.4205840772542
+        ]
+      },
+      "properties": {
+        "nref": "N002",
+        "nnamn": "GRUVESÄTER",
+        "idcadra": 43960,
+        "btkod": "SS",
+        "not1": "STN.TYP:TSK500-2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8203035467226,
+          58.4183713307411
+        ]
+      },
+      "properties": {
+        "nref": "N003",
+        "nnamn": "KLIPPET",
+        "idcadra": 152833,
+        "btkod": "BTL",
+        "not1": "VID \"KLIPPET\""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8138086623741,
+          58.4095800395615
+        ]
+      },
+      "properties": {
+        "nref": "N004",
+        "nnamn": "TV-STATIONEN",
+        "idcadra": 189,
+        "btkod": "AB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8288964027729,
+          58.4095152756538
+        ]
+      },
+      "properties": {
+        "nref": "N005",
+        "nnamn": "STAMMEN",
+        "idcadra": 167,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8351352544956,
+          58.4089694144903
+        ]
+      },
+      "properties": {
+        "nref": "N006",
+        "nnamn": "GULLPUDRAN",
+        "idcadra": 32401,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8411016561122,
+          58.3873257445442
+        ]
+      },
+      "properties": {
+        "nref": "N007",
+        "nnamn": "LÖNNEN",
+        "idcadra": 47883,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8325900999927,
+          58.4057350033807
+        ]
+      },
+      "properties": {
+        "nref": "N008",
+        "nnamn": "BLÅKLINTEN",
+        "idcadra": 148348,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8416480318894,
+          58.4066987516188
+        ]
+      },
+      "properties": {
+        "nref": "N009",
+        "nnamn": "MUSSERONEN",
+        "idcadra": 130,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8356711450347,
+          58.4023602356773
+        ]
+      },
+      "properties": {
+        "nref": "N010",
+        "nnamn": "KÄPPLUNDA",
+        "idcadra": 152,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8464984242604,
+          58.4024391529304
+        ]
+      },
+      "properties": {
+        "nref": "N011",
+        "nnamn": "HAVSTENAVÄGEN",
+        "idcadra": 112,
+        "btkod": "TEG",
+        "not1": "RENOVERAD 1997",
+        "not3": "värderad som BTH2x800"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8478821171554,
+          58.4057392950179
+        ]
+      },
+      "properties": {
+        "nref": "N012",
+        "nnamn": "NORRA HAVSTENA",
+        "idcadra": 113,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8490221354129,
+          58.4016691769976
+        ]
+      },
+      "properties": {
+        "nref": "N013",
+        "nnamn": "SLÄGGAN",
+        "idcadra": 3648,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8213044214315,
+          58.3723028835323
+        ]
+      },
+      "properties": {
+        "nref": "N014",
+        "nnamn": "JÄGMÄSTAREN",
+        "idcadra": 190,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8322875971274,
+          58.4208456693986
+        ]
+      },
+      "properties": {
+        "nref": "N015",
+        "nnamn": "HASSELBACKEN",
+        "idcadra": 152978,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8415565676231,
+          58.4202287638623
+        ]
+      },
+      "properties": {
+        "nref": "N016",
+        "nnamn": "AGATEN",
+        "idcadra": 104,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8378777383333,
+          58.3934482916067
+        ]
+      },
+      "properties": {
+        "nref": "N017",
+        "nnamn": "ARENAN",
+        "idcadra": 57093,
+        "btkod": "AB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8603645467231,
+          58.4136951894088
+        ]
+      },
+      "properties": {
+        "nref": "N018",
+        "nnamn": "ASPÖ",
+        "idcadra": 153761,
+        "btkod": "PLK",
+        "not1": "TYP:NKP12-3L4EI"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8434867824029,
+          58.3882261485175
+        ]
+      },
+      "properties": {
+        "nref": "N019",
+        "nnamn": "BOKTRYCKAREN",
+        "idcadra": 131,
+        "btkod": "AB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8755252250265,
+          58.4155011282423
+        ]
+      },
+      "properties": {
+        "nref": "N020",
+        "nnamn": "KAMOMILLEN",
+        "idcadra": 51271,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8888486513146,
+          58.4196900229222
+        ]
+      },
+      "properties": {
+        "nref": "N021",
+        "nnamn": "HULTSTORP",
+        "idcadra": 33036,
+        "btkod": "PLK",
+        "not1": "TGS 1000-SPECIAL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8548222701803,
+          58.3882670798483
+        ]
+      },
+      "properties": {
+        "nref": "N022",
+        "nnamn": "Pingstliljan",
+        "idcadra": 154368,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8152991366459,
+          58.3715097880365
+        ]
+      },
+      "properties": {
+        "nref": "N023",
+        "nnamn": "KLASBORGSKNUTEN",
+        "idcadra": 68274,
+        "btkod": "KOP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8377825374805,
+          58.4049493183699
+        ]
+      },
+      "properties": {
+        "nref": "N024",
+        "nnamn": "LILLÄNGEN",
+        "idcadra": 151,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8653882475758,
+          58.4064716618376
+        ]
+      },
+      "properties": {
+        "nref": "N025",
+        "nnamn": "STOREGÅRDEN",
+        "idcadra": 69,
+        "btkod": "TEG",
+        "not3": "Värderad som BTH2x800"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8416666135396,
+          58.3909423661778
+        ]
+      },
+      "properties": {
+        "nref": "N026",
+        "nnamn": "SKOLAN",
+        "idcadra": 136,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8751553405933,
+          58.4032383055283
+        ]
+      },
+      "properties": {
+        "nref": "N027",
+        "nnamn": "DUNGEN",
+        "idcadra": 49,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8646366872634,
+          58.4016077416679
+        ]
+      },
+      "properties": {
+        "nref": "N028",
+        "nnamn": "KUNGSBERG",
+        "idcadra": 68,
+        "btkod": "TEG",
+        "not3": "Värderad som BTH2x800"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.854162041936,
+          58.4042676636809
+        ]
+      },
+      "properties": {
+        "nref": "N029",
+        "nnamn": "GRUBBAVÄGEN",
+        "idcadra": 80,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8629678571017,
+          58.4006518360647
+        ]
+      },
+      "properties": {
+        "nref": "N030",
+        "nnamn": "ANDELSMEJERIET",
+        "idcadra": 71,
+        "btkod": "AB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8674994363049,
+          58.4203096395572
+        ]
+      },
+      "properties": {
+        "nref": "N031",
+        "nnamn": "HANDLAREN",
+        "idcadra": 35,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.817108945374,
+          58.3941926796548
+        ]
+      },
+      "properties": {
+        "nref": "N033",
+        "nnamn": "DISKUSEN",
+        "idcadra": 187,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8567350430764,
+          58.3999151891139
+        ]
+      },
+      "properties": {
+        "nref": "N034",
+        "nnamn": "LEKPLATSEN",
+        "idcadra": 78,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8496062782934,
+          58.3984804050541
+        ]
+      },
+      "properties": {
+        "nref": "N035",
+        "nnamn": "KORNET",
+        "idcadra": 116,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.85065931489,
+          58.3960265404642
+        ]
+      },
+      "properties": {
+        "nref": "N036",
+        "nnamn": "OSTRONET",
+        "idcadra": 117,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8476279840283,
+          58.3938262179576
+        ]
+      },
+      "properties": {
+        "nref": "N037",
+        "nnamn": "VÄSTRA FÄLTET",
+        "idcadra": 123,
+        "btkod": "TEG",
+        "not3": "Värderad som BTH2x800"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8418939814393,
+          58.3967684662387
+        ]
+      },
+      "properties": {
+        "nref": "N038",
+        "nnamn": "SKOLTUNA",
+        "idcadra": 139,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8892115916395,
+          58.3874310252302
+        ]
+      },
+      "properties": {
+        "nref": "N039",
+        "nnamn": "Varolavägen",
+        "idcadra": 145047,
+        "btkod": "BTL",
+        "not1": "NA13018"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8213831074843,
+          58.4035101315653
+        ]
+      },
+      "properties": {
+        "nref": "N040",
+        "nnamn": "BILLINGEHUS",
+        "idcadra": 182,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8124129575249,
+          58.4007132362031
+        ]
+      },
+      "properties": {
+        "nref": "N041",
+        "nnamn": "Hållsdammen",
+        "idcadra": 155472,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8310463844884,
+          58.3961595151065
+        ]
+      },
+      "properties": {
+        "nref": "N042",
+        "nnamn": "GRANITEN",
+        "idcadra": 153421,
+        "btkod": "TEG",
+        "not3": "Värderad som BTH2x800"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8229727946497,
+          58.3940523414685
+        ]
+      },
+      "properties": {
+        "nref": "N043",
+        "nnamn": "SÖDRA BERGVÄGEN",
+        "idcadra": 53008,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8319679014969,
+          58.3941370876491
+        ]
+      },
+      "properties": {
+        "nref": "N044",
+        "nnamn": "DJURSÄNG",
+        "idcadra": 65329,
+        "btkod": "TEG",
+        "not3": "Värderad som BTH2x800"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8762643816431,
+          58.3789046866026
+        ]
+      },
+      "properties": {
+        "nref": "N045",
+        "nnamn": "RISÄNGEN",
+        "idcadra": 142889,
+        "btkod": "BTH",
+        "not3": "Stationstyp: TK8B"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8928348825567,
+          58.3934801191443
+        ]
+      },
+      "properties": {
+        "nref": "N046",
+        "nnamn": "MEJSELN",
+        "idcadra": 40,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8489392598396,
+          58.3915512244421
+        ]
+      },
+      "properties": {
+        "nref": "N047",
+        "nnamn": "HELENASKOLAN",
+        "idcadra": 128,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8584612043654,
+          58.3930601735305
+        ]
+      },
+      "properties": {
+        "nref": "N048",
+        "nnamn": "KANIKERUKAN",
+        "idcadra": 151344,
+        "btkod": "BTH",
+        "not1": "Ställverksbyte HSP 2016"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8628259870266,
+          58.3951666922746
+        ]
+      },
+      "properties": {
+        "nref": "N049",
+        "nnamn": "MARIESJÖ",
+        "idcadra": 75,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8688331651697,
+          58.3956523083525
+        ]
+      },
+      "properties": {
+        "nref": "N050",
+        "nnamn": "ELDAREN",
+        "idcadra": 63,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8787470965981,
+          58.3968533718514
+        ]
+      },
+      "properties": {
+        "nref": "N051",
+        "nnamn": "VENTILEN",
+        "idcadra": 156026,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8666258055795,
+          58.3922200742816
+        ]
+      },
+      "properties": {
+        "nref": "N052",
+        "nnamn": "FORSBERGS ÄNG",
+        "idcadra": 74,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8631727348352,
+          58.3989544179081
+        ]
+      },
+      "properties": {
+        "nref": "N053",
+        "nnamn": "KOMMUNVERKSTADEN",
+        "idcadra": 76,
+        "btkod": "BTH",
+        "not1": "Ställverksbyte HSP 201703"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8553324473202,
+          58.3930958226083
+        ]
+      },
+      "properties": {
+        "nref": "N054",
+        "nnamn": "STORA MÖRKE",
+        "idcadra": 91,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8389999568868,
+          58.389225677431
+        ]
+      },
+      "properties": {
+        "nref": "N055",
+        "nnamn": "PILFINKEN",
+        "idcadra": 43574,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8681667662996,
+          58.4137448394464
+        ]
+      },
+      "properties": {
+        "nref": "N056",
+        "nnamn": "ASPÖKNUTEN",
+        "idcadra": 24,
+        "btkod": "KOP",
+        "not1": "Endast kopplingsstation"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8503510777354,
+          58.3890874037936
+        ]
+      },
+      "properties": {
+        "nref": "N057",
+        "nnamn": "BILLINGEN",
+        "idcadra": 119,
+        "btkod": "INB",
+        "not1": "PLACERAD I POSTHUSETS KÄLLARE",
+        "not3": "AVLÄSNINGSNYCKEL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8449585427081,
+          58.3901255268262
+        ]
+      },
+      "properties": {
+        "nref": "N058",
+        "nnamn": "LOKE",
+        "idcadra": 155032,
+        "btkod": "INB",
+        "not1": "LIGGER I KÄLLAREN PÅ COMMERCE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8465453154549,
+          58.3897890592884
+        ]
+      },
+      "properties": {
+        "nref": "N059",
+        "nnamn": "HEIMDAL",
+        "idcadra": 154418,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8533023936907,
+          58.4106623454645
+        ]
+      },
+      "properties": {
+        "nref": "N060",
+        "nnamn": "Frostaliden",
+        "idcadra": 149198,
+        "btkod": "BTL",
+        "not1": "Nr från fd. Televerket."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8762297356151,
+          58.3981266840957
+        ]
+      },
+      "properties": {
+        "nref": "N061",
+        "nnamn": "NORRA KAMAXELN",
+        "idcadra": 139508,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8664193441647,
+          58.3888000500792
+        ]
+      },
+      "properties": {
+        "nref": "N062",
+        "nnamn": "TALLBACKEN",
+        "idcadra": 154209,
+        "btkod": "TEG",
+        "not3": "Värderad som BTH2x800"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8357730273054,
+          58.3950878156158
+        ]
+      },
+      "properties": {
+        "nref": "N063",
+        "nnamn": "RÖDFYRAN",
+        "idcadra": 51128,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8706695719458,
+          58.388141408047
+        ]
+      },
+      "properties": {
+        "nref": "N064",
+        "nnamn": "ERIKSDAL",
+        "idcadra": 61,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8781798596949,
+          58.3901933765928
+        ]
+      },
+      "properties": {
+        "nref": "N065",
+        "nnamn": "AVLOPPSVERKET",
+        "idcadra": 151975,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.86810445806,
+          58.3848000105717
+        ]
+      },
+      "properties": {
+        "nref": "N066",
+        "nnamn": "RINGSTIGEN",
+        "idcadra": 66,
+        "btkod": "TEG",
+        "not3": "Värderad som BTH2x800"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8580023369172,
+          58.3865883265137
+        ]
+      },
+      "properties": {
+        "nref": "N067",
+        "nnamn": "ÖSTERMALM",
+        "idcadra": 86,
+        "btkod": "BTH",
+        "not1": "Ställverksbyte HSP 2017"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8639130693893,
+          58.3844977555328
+        ]
+      },
+      "properties": {
+        "nref": "N068",
+        "nnamn": "RUNAN",
+        "idcadra": 145834,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.9193565764298,
+          58.4281049643243
+        ]
+      },
+      "properties": {
+        "nref": "N069",
+        "nnamn": "FJÄLLETS GÅRD",
+        "idcadra": 2,
+        "btkod": "SS"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8750920741253,
+          58.3811795613764
+        ]
+      },
+      "properties": {
+        "nref": "N070",
+        "nnamn": "RENHÅLLNINGSVERKET",
+        "idcadra": 64,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.886298895698,
+          58.3727787416475
+        ]
+      },
+      "properties": {
+        "nref": "N071",
+        "nnamn": "RISA",
+        "idcadra": 53355,
+        "btkod": "PLK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8316998630429,
+          58.3819815966574
+        ]
+      },
+      "properties": {
+        "nref": "N072",
+        "nnamn": "GRUVGATAN",
+        "idcadra": 65536,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8718542448528,
+          58.3707475702764
+        ]
+      },
+      "properties": {
+        "nref": "N073",
+        "nnamn": "HELGESGÅRDEN",
+        "idcadra": 3604,
+        "btkod": "PLK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8625983511161,
+          58.3763225217191
+        ]
+      },
+      "properties": {
+        "nref": "N074",
+        "nnamn": "SEGERSTORP",
+        "idcadra": 140996,
+        "btkod": "BTL",
+        "not1": "Byte av station dec 2011."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8276584027699,
+          58.3904043659656
+        ]
+      },
+      "properties": {
+        "nref": "N075",
+        "nnamn": "STENBROTTET",
+        "idcadra": 170,
+        "btkod": "TEG",
+        "not3": "Värderad som BTH2x800"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8356931648292,
+          58.3866846376102
+        ]
+      },
+      "properties": {
+        "nref": "N076",
+        "nnamn": "VÄSTERMALM",
+        "idcadra": 47830,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.9076056635747,
+          58.4169293825714
+        ]
+      },
+      "properties": {
+        "nref": "N077",
+        "nnamn": "Kvarnegården",
+        "idcadra": 153815,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8416441073857,
+          58.3833111384218
+        ]
+      },
+      "properties": {
+        "nref": "N078",
+        "nnamn": "STUREGATAN",
+        "idcadra": 149,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8835915578836,
+          58.3847096839138
+        ]
+      },
+      "properties": {
+        "nref": "N079",
+        "nnamn": "VÄRMEKÄLLAN",
+        "idcadra": 148675,
+        "btkod": "AB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8385339123061,
+          58.3780582911501
+        ]
+      },
+      "properties": {
+        "nref": "N080",
+        "nnamn": "SÖDERMALM",
+        "idcadra": 63556,
+        "btkod": "TEG",
+        "not3": "Värderad som BTH2x800"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8479796970568,
+          58.3791911408868
+        ]
+      },
+      "properties": {
+        "nref": "N081",
+        "nnamn": "P4",
+        "idcadra": 152592,
+        "btkod": "AB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8340224799167,
+          58.3745238257603
+        ]
+      },
+      "properties": {
+        "nref": "N082",
+        "nnamn": "KÄLLEGÅRDEN",
+        "idcadra": 172,
+        "btkod": "TEG"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8690657014359,
+          58.4080861367646
+        ]
+      },
+      "properties": {
+        "nref": "N083",
+        "nnamn": "SÖDRA VÄXTHUSET",
+        "idcadra": 60,
+        "btkod": "INB",
+        "not1": "Bytt HSP Ställverk 2016"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8265530973074,
+          58.3688600120272
+        ]
+      },
+      "properties": {
+        "nref": "N084",
+        "nnamn": "HENTORP",
+        "idcadra": 155198,
+        "btkod": "TEG",
+        "not3": "Värderad som BTH2x800"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8742675647573,
+          58.4082326548408
+        ]
+      },
+      "properties": {
+        "nref": "N085",
+        "nnamn": "JÄRNET",
+        "idcadra": 53527,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.7837832047341,
+          58.3602802017796
+        ]
+      },
+      "properties": {
+        "nref": "N086",
+        "nnamn": "VILLESTIGEN",
+        "idcadra": 207,
+        "btkod": "SS",
+        "not1": "TYP:LUNA 2S"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.7779682822182,
+          58.3594310684171
+        ]
+      },
+      "properties": {
+        "nref": "N087",
+        "nnamn": "VILLEVIKEN",
+        "idcadra": 209,
+        "btkod": "SS",
+        "not1": "TYP:LUNA 2S"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8190396787545,
+          58.4053834011219
+        ]
+      },
+      "properties": {
+        "nref": "N088",
+        "nnamn": "Isstadion",
+        "idcadra": 155088,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.865579565061,
+          58.4100802586848
+        ]
+      },
+      "properties": {
+        "nref": "N089",
+        "nnamn": "ROSENHAGA",
+        "idcadra": 70,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8187820622091,
+          58.3976899338613
+        ]
+      },
+      "properties": {
+        "nref": "N090",
+        "nnamn": "BILLINGSTORP",
+        "idcadra": 145523,
+        "btkod": "PL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8630927404473,
+          58.4144595942838
+        ]
+      },
+      "properties": {
+        "nref": "N091",
+        "nnamn": "Östra Aspö",
+        "idcadra": 147176,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.876226776166,
+          58.3898220508644
+        ]
+      },
+      "properties": {
+        "nref": "N092",
+        "nnamn": "SLAKTERIET",
+        "idcadra": 148040,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8831663760293,
+          58.3975225602206
+        ]
+      },
+      "properties": {
+        "nref": "N093",
+        "nnamn": "CYLINDERN",
+        "idcadra": 154531,
+        "btkod": "BTH",
+        "not1": "HSP Ställverksbyte 201805"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.890913415824,
+          58.3867255591486
+        ]
+      },
+      "properties": {
+        "nref": "N094",
+        "nnamn": "Värmeväxlaren",
+        "idcadra": 144208,
+        "btkod": "BTH",
+        "not1": "XR",
+        "not3": "_hänglåskod: 1985",
+        "not2": "_grinden: kontrollrumsvakt"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8738929635247,
+          58.4245466991733
+        ]
+      },
+      "properties": {
+        "nref": "N095",
+        "nnamn": "GULDBAGGEN",
+        "idcadra": 21,
+        "btkod": "INB",
+        "not1": "HSP-Ställverk bytt 201703",
+        "not3": "HSP-skarvar under golvplåt"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8719932986416,
+          58.421302208097
+        ]
+      },
+      "properties": {
+        "nref": "N096",
+        "nnamn": "SKALBAGGEN",
+        "idcadra": 153301,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8812407081204,
+          58.4234925943647
+        ]
+      },
+      "properties": {
+        "nref": "N097",
+        "nnamn": "OLLONBORREN",
+        "idcadra": 152581,
+        "btkod": "BTH",
+        "not1": "Hsp-ställverk bytt 201706"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8771500429953,
+          58.4250489015287
+        ]
+      },
+      "properties": {
+        "nref": "N098",
+        "nnamn": "ÖSTRA EKOXEN",
+        "idcadra": 3558,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8718239167038,
+          58.4263393279427
+        ]
+      },
+      "properties": {
+        "nref": "N099",
+        "nnamn": "VÄSTRA EKOXEN",
+        "idcadra": 22,
+        "btkod": "BTH",
+        "not1": "Ställverksbyte HSP 201704",
+        "not3": "?ANNAN ÄGARE?"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8725131910443,
+          58.428402253803
+        ]
+      },
+      "properties": {
+        "nref": "N100",
+        "nnamn": "DAGSLÄNDAN",
+        "idcadra": 19,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8763549104882,
+          58.4275201733909
+        ]
+      },
+      "properties": {
+        "nref": "N101",
+        "nnamn": "LYSMASKEN",
+        "idcadra": -1,
+        "btkod": "INB",
+        "not1": "HSP Ställverk bytt 2019H1"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.88404617701,
+          58.4265277460139
+        ]
+      },
+      "properties": {
+        "nref": "N102",
+        "nnamn": "TUSENFOTINGEN",
+        "idcadra": -1,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8717897025353,
+          58.4133483293666
+        ]
+      },
+      "properties": {
+        "nref": "N103",
+        "nnamn": "NEJLIKAN",
+        "idcadra": 23,
+        "btkod": "BTH",
+        "not1": "Bytt HSP-Ställverk -17",
+        "not3": "Bytt Trafo x 2  -17"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8706843470831,
+          58.4107299655984
+        ]
+      },
+      "properties": {
+        "nref": "N104",
+        "nnamn": "NORRA VÄXTHUSET",
+        "idcadra": 154331,
+        "btkod": "INB",
+        "not1": "HSP Ställverksbyte 201804"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8158187347083,
+          58.3837634621898
+        ]
+      },
+      "properties": {
+        "nref": "N105",
+        "nnamn": "Stommen",
+        "idcadra": 151546,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8059043281139,
+          58.3897309377799
+        ]
+      },
+      "properties": {
+        "nref": "N106",
+        "nnamn": "ROSENBACKEN",
+        "idcadra": 151874,
+        "btkod": "PLK",
+        "not1": "TYP: TSK1000-4"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.7949974897681,
+          58.3898822066222
+        ]
+      },
+      "properties": {
+        "nref": "N107",
+        "nnamn": "Bäckatorp",
+        "idcadra": 151565,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.7765655127425,
+          58.3941250028765
+        ]
+      },
+      "properties": {
+        "nref": "N108",
+        "nnamn": "ALTORP",
+        "idcadra": 208,
+        "btkod": "SS",
+        "not1": "TYP:SSP12-2L3"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.7590956818566,
+          58.3949156674219
+        ]
+      },
+      "properties": {
+        "nref": "N109",
+        "nnamn": "SVARVAREBACKEN",
+        "idcadra": 3743,
+        "btkod": "SS",
+        "not1": "TYP: SSP12-2L3"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8295209708179,
+          58.3737903118568
+        ]
+      },
+      "properties": {
+        "nref": "N110",
+        "nnamn": "SOFIEDAL",
+        "idcadra": 3710,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8813269681185,
+          58.3871315280631
+        ]
+      },
+      "properties": {
+        "nref": "N111",
+        "nnamn": "BÄCKASKOG",
+        "idcadra": 99,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8761014823114,
+          58.3925068392842
+        ]
+      },
+      "properties": {
+        "nref": "N112",
+        "nnamn": "ASPELUNDSVÄGEN",
+        "idcadra": 152138,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8424194557286,
+          58.4174522779365
+        ]
+      },
+      "properties": {
+        "nref": "N113",
+        "nnamn": "HALSBANDET",
+        "idcadra": 103,
+        "btkod": "TEG",
+        "not3": "Värderad som BTH2x800"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8559570561384,
+          58.407566581657
+        ]
+      },
+      "properties": {
+        "nref": "N114",
+        "nnamn": "OBS",
+        "idcadra": 83,
+        "btkod": "AB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8478419945221,
+          58.4138195646759
+        ]
+      },
+      "properties": {
+        "nref": "N115",
+        "nnamn": "LILLEGÅRDEN",
+        "idcadra": 153385,
+        "btkod": "BTH",
+        "not1": "IP LILLEGÅRDEN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8812559832696,
+          58.4312405169394
+        ]
+      },
+      "properties": {
+        "nref": "N116",
+        "nnamn": "FLUGAN",
+        "idcadra": 12,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8858607955943,
+          58.4281293501368
+        ]
+      },
+      "properties": {
+        "nref": "N117",
+        "nnamn": "SANDJÄGAREN",
+        "idcadra": 6,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8568315452761,
+          58.4280787632733
+        ]
+      },
+      "properties": {
+        "nref": "N118",
+        "nnamn": "KSS",
+        "idcadra": 31,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8430617271775,
+          58.4095948551467
+        ]
+      },
+      "properties": {
+        "nref": "N119",
+        "nnamn": "ÅSENVÄGEN",
+        "idcadra": 129,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8689862589838,
+          58.4152148682129
+        ]
+      },
+      "properties": {
+        "nref": "N120",
+        "nnamn": "MELLOMKVARNSPUMPSTN",
+        "idcadra": 25,
+        "btkod": "PLK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8708112731407,
+          58.4195549321641
+        ]
+      },
+      "properties": {
+        "nref": "N121",
+        "nnamn": "MELLOMKVARN",
+        "idcadra": 26,
+        "btkod": "BTL",
+        "not1": "FD BRUKSGATAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8445501158684,
+          58.3920748477775
+        ]
+      },
+      "properties": {
+        "nref": "N122",
+        "nnamn": "DIANA",
+        "idcadra": 145248,
+        "btkod": "BTL",
+        "not1": "KOPPARKLÄDD"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8854914720753,
+          58.4303569917758
+        ]
+      },
+      "properties": {
+        "nref": "N123",
+        "nnamn": "TRÄGNAGAREN",
+        "idcadra": 3549,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8745486494157,
+          58.4331097413881
+        ]
+      },
+      "properties": {
+        "nref": "N124",
+        "nnamn": "BOKMALEN",
+        "idcadra": 27,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.9115066584239,
+          58.4227795340736
+        ]
+      },
+      "properties": {
+        "nref": "N125",
+        "nnamn": "SKOGSDALEN",
+        "idcadra": 3,
+        "btkod": "PLK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8855854169036,
+          58.4342531360265
+        ]
+      },
+      "properties": {
+        "nref": "N126",
+        "nnamn": "GRANÄNGEN",
+        "idcadra": 8,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8344125665313,
+          58.3832404402664
+        ]
+      },
+      "properties": {
+        "nref": "N127",
+        "nnamn": "GOTTHARD NILSSON",
+        "idcadra": 176,
+        "btkod": "PLK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8888556217157,
+          58.4327439438777
+        ]
+      },
+      "properties": {
+        "nref": "N128",
+        "nnamn": "SYRSAN",
+        "idcadra": 11,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8698082622169,
+          58.402221380147
+        ]
+      },
+      "properties": {
+        "nref": "N129",
+        "nnamn": "HASSLUM",
+        "idcadra": 58,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8792231900139,
+          58.4013768683732
+        ]
+      },
+      "properties": {
+        "nref": "N130",
+        "nnamn": "BRANDMANNEN",
+        "idcadra": 54141,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8799448540058,
+          58.4112235700306
+        ]
+      },
+      "properties": {
+        "nref": "N131",
+        "nnamn": "STALLSIKEN",
+        "idcadra": 56221,
+        "btkod": "BTL",
+        "not1": "NORR STALLSIKSRONDELLEN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8816964238898,
+          58.4339774780508
+        ]
+      },
+      "properties": {
+        "nref": "N132",
+        "nnamn": "NYCKELPIGAN",
+        "idcadra": 36,
+        "btkod": "BTH",
+        "not1": "TRÄPANEL MED PLÅTTAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.7755292256719,
+          58.3577215416443
+        ]
+      },
+      "properties": {
+        "nref": "N133",
+        "nnamn": "SÖDRA SIMSJÖN",
+        "idcadra": 145133,
+        "btkod": "PLK",
+        "not1": "NA12093"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8584883024436,
+          58.4024690185687
+        ]
+      },
+      "properties": {
+        "nref": "N134",
+        "nnamn": "MELLOMGÅRDEN",
+        "idcadra": 77,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8483970977197,
+          58.3903227161625
+        ]
+      },
+      "properties": {
+        "nref": "N135",
+        "nnamn": "BRAGE",
+        "idcadra": 125,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.847521251607,
+          58.4212092837589
+        ]
+      },
+      "properties": {
+        "nref": "N136",
+        "nnamn": "KARSTORP",
+        "idcadra": 101,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8786062209172,
+          58.4140196787969
+        ]
+      },
+      "properties": {
+        "nref": "N137",
+        "nnamn": "TITANET",
+        "idcadra": 145668,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8331807236531,
+          58.3867540421895
+        ]
+      },
+      "properties": {
+        "nref": "N138",
+        "nnamn": "VIPAN",
+        "idcadra": 67927,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8334649643204,
+          58.4168653857373
+        ]
+      },
+      "properties": {
+        "nref": "N139",
+        "nnamn": "STENBOCKEN",
+        "idcadra": 106,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.832755279468,
+          58.3778848951036
+        ]
+      },
+      "properties": {
+        "nref": "N140",
+        "nnamn": "Anneroknuten",
+        "idcadra": 146546,
+        "btkod": "KOP",
+        "not1": "Står intill stig bakom Annero."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8677042755916,
+          58.3824848353395
+        ]
+      },
+      "properties": {
+        "nref": "N141",
+        "nnamn": "Runstaven",
+        "idcadra": 155698,
+        "btkod": "BTL",
+        "not1": "Gamla rönnen"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8625173429503,
+          58.4267340773487
+        ]
+      },
+      "properties": {
+        "nref": "N142",
+        "nnamn": "SKOGSBRYNET",
+        "idcadra": 28,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.88248096731,
+          58.3942386630663
+        ]
+      },
+      "properties": {
+        "nref": "N143",
+        "nnamn": "NORREGÅRDEN",
+        "idcadra": 153284,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8431986736334,
+          58.3902469668724
+        ]
+      },
+      "properties": {
+        "nref": "N144",
+        "nnamn": "BAGAREN",
+        "idcadra": 132,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8324198088412,
+          58.3731094711229
+        ]
+      },
+      "properties": {
+        "nref": "N145",
+        "nnamn": "HULTET",
+        "idcadra": 152958,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8362001920894,
+          58.4130156807031
+        ]
+      },
+      "properties": {
+        "nref": "N146",
+        "nnamn": "EKÄNGEN",
+        "idcadra": 3685,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.889525000929,
+          58.3956988115535
+        ]
+      },
+      "properties": {
+        "nref": "N147",
+        "nnamn": "SÖDERGÅRDEN",
+        "idcadra": 41,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8986048397489,
+          58.4017220558368
+        ]
+      },
+      "properties": {
+        "nref": "N148",
+        "nnamn": "RÄDDNINGSSKOLAN",
+        "idcadra": 37,
+        "btkod": "PLK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8353906623377,
+          58.3836329147348
+        ]
+      },
+      "properties": {
+        "nref": "N149",
+        "nnamn": "VESSLAN",
+        "idcadra": 171,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8673682316156,
+          58.4044190240216
+        ]
+      },
+      "properties": {
+        "nref": "N150",
+        "nnamn": "GRODDEN",
+        "idcadra": 97,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8298147701435,
+          58.4016123154308
+        ]
+      },
+      "properties": {
+        "nref": "N151",
+        "nnamn": "BULLEN",
+        "idcadra": 140627,
+        "btkod": "BTL",
+        "not1": "TYP: MB 1408G/BMN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8328258168577,
+          58.4107800005863
+        ]
+      },
+      "properties": {
+        "nref": "N152",
+        "nnamn": "PENNINGÖRTEN",
+        "idcadra": 157,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8317973973889,
+          58.3668803490836
+        ]
+      },
+      "properties": {
+        "nref": "N153",
+        "nnamn": "ÖVREGÅRDEN",
+        "idcadra": 177,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8537590400359,
+          58.4016023201176
+        ]
+      },
+      "properties": {
+        "nref": "N154",
+        "nnamn": "MARIEHOV",
+        "idcadra": 154433,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8839992669143,
+          58.3860461855076
+        ]
+      },
+      "properties": {
+        "nref": "N155",
+        "nnamn": "GRÖNEDAL",
+        "idcadra": 47,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8779109116511,
+          58.395419362506
+        ]
+      },
+      "properties": {
+        "nref": "N156",
+        "nnamn": "SÖDRA KAMAXELN",
+        "idcadra": 57,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8911760512023,
+          58.4089004000436
+        ]
+      },
+      "properties": {
+        "nref": "N157",
+        "nnamn": "KARUSELLEN",
+        "idcadra": 153806,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8828657822264,
+          58.4092307461584
+        ]
+      },
+      "properties": {
+        "nref": "N158",
+        "nnamn": "NICKLET",
+        "idcadra": 154961,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8852167300575,
+          58.4114681946753
+        ]
+      },
+      "properties": {
+        "nref": "N159",
+        "nnamn": "KOPPARN",
+        "idcadra": 140346,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8458810008894,
+          58.3830573631457
+        ]
+      },
+      "properties": {
+        "nref": "N160",
+        "nnamn": "LEJONET",
+        "idcadra": 147,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8887868535777,
+          58.3923343044846
+        ]
+      },
+      "properties": {
+        "nref": "N161",
+        "nnamn": "SKIFTNYCKELN",
+        "idcadra": 140235,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8581420058225,
+          58.3969934221002
+        ]
+      },
+      "properties": {
+        "nref": "N162",
+        "nnamn": "KOLONNEN",
+        "idcadra": 154954,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8568857074787,
+          58.4283569284813
+        ]
+      },
+      "properties": {
+        "nref": "N163",
+        "nnamn": "LÖVÄNGSVERKET",
+        "idcadra": 32,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8277885672412,
+          58.4007466521746
+        ]
+      },
+      "properties": {
+        "nref": "N164",
+        "nnamn": "BUTTER",
+        "idcadra": 168,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8148239617341,
+          58.4160057536907
+        ]
+      },
+      "properties": {
+        "nref": "N165",
+        "nnamn": "ÅSBOTORP",
+        "idcadra": 152829,
+        "btkod": "PLK",
+        "not1": "STATIONEN DRIFTSÄTTS DEC 06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8248191638156,
+          58.4144635428671
+        ]
+      },
+      "properties": {
+        "nref": "N166",
+        "nnamn": "DÄLDERNAVÄGEN",
+        "idcadra": 3643,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8250974936967,
+          58.3647966778388
+        ]
+      },
+      "properties": {
+        "nref": "N167",
+        "nnamn": "HOVRÄTTEN",
+        "idcadra": 3712,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8777684638542,
+          58.4188702492745
+        ]
+      },
+      "properties": {
+        "nref": "N168",
+        "nnamn": "KUMMILTORP",
+        "idcadra": 155903,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8364859728228,
+          58.4106896420642
+        ]
+      },
+      "properties": {
+        "nref": "N169",
+        "nnamn": "EKEBACKEN",
+        "idcadra": 153,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.7835577966632,
+          58.4195082991067
+        ]
+      },
+      "properties": {
+        "nref": "N170",
+        "nnamn": "KATRINELUND",
+        "idcadra": 43983,
+        "btkod": "SS",
+        "not1": "TYP: TSK 500-2",
+        "not3": "INKÖPSPRIS:75400:-"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8187961620869,
+          58.4068294570087
+        ]
+      },
+      "properties": {
+        "nref": "N171",
+        "nnamn": "CAMPINGEN",
+        "idcadra": 184,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8536437165554,
+          58.3952103203066
+        ]
+      },
+      "properties": {
+        "nref": "N172",
+        "nnamn": "GÖTA",
+        "idcadra": 90,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8813862629555,
+          58.3973752450986
+        ]
+      },
+      "properties": {
+        "nref": "N173",
+        "nnamn": "CEJN",
+        "idcadra": 151188,
+        "btkod": "AB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8877765427993,
+          58.3968712541065
+        ]
+      },
+      "properties": {
+        "nref": "N174",
+        "nnamn": "VEVSTAKEN",
+        "idcadra": 153565,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8568486801187,
+          58.3959286509356
+        ]
+      },
+      "properties": {
+        "nref": "N175",
+        "nnamn": "ALFHEM",
+        "idcadra": 84,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8373825980355,
+          58.4006858400495
+        ]
+      },
+      "properties": {
+        "nref": "N176",
+        "nnamn": "KÄPPLUNDAGÄRDET",
+        "idcadra": 154526,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8695169620202,
+          58.3972663754477
+        ]
+      },
+      "properties": {
+        "nref": "N177",
+        "nnamn": "STINSEN",
+        "idcadra": 62,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.877029691553,
+          58.3849536140767
+        ]
+      },
+      "properties": {
+        "nref": "N178",
+        "nnamn": "SÖDRA BÄCKASKOG",
+        "idcadra": 65,
+        "btkod": "PLK",
+        "not1": "EGEN FASTIGHET PÅ 201 KVADRATM",
+        "not3": "Z-KIOSK TYP:ZT14-10/4-2F"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8484564896912,
+          58.4102087582613
+        ]
+      },
+      "properties": {
+        "nref": "N179",
+        "nnamn": "FROSTAKÄLLAN",
+        "idcadra": 153294,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8965867791296,
+          58.3956412370555
+        ]
+      },
+      "properties": {
+        "nref": "N180",
+        "nnamn": "SKINKATORPET",
+        "idcadra": 39,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8959696917062,
+          58.3970347351217
+        ]
+      },
+      "properties": {
+        "nref": "N181",
+        "nnamn": "STORÄNGEN",
+        "idcadra": 38,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8152481123347,
+          58.371536847627
+        ]
+      },
+      "properties": {
+        "nref": "N182",
+        "nnamn": "ARKEOLOGEN",
+        "idcadra": 196,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8586540550034,
+          58.3985810919895
+        ]
+      },
+      "properties": {
+        "nref": "N183",
+        "nnamn": "BATALJONEN",
+        "idcadra": 87,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8447709125503,
+          58.390170921788
+        ]
+      },
+      "properties": {
+        "nref": "N184",
+        "nnamn": "COMMERCE",
+        "idcadra": 135,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8242427627856,
+          58.3610191014898
+        ]
+      },
+      "properties": {
+        "nref": "N185",
+        "nnamn": "HENEPORTEN",
+        "idcadra": 181,
+        "btkod": "SS",
+        "not1": "TYP: LUNA 2S"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8186087872976,
+          58.365208017814
+        ]
+      },
+      "properties": {
+        "nref": "N186",
+        "nnamn": "GRÖNGÖLINGEN",
+        "idcadra": 143663,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8070465753689,
+          58.3696803710404
+        ]
+      },
+      "properties": {
+        "nref": "N187",
+        "nnamn": "GOLFBANAN",
+        "idcadra": 202,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.808256869762,
+          58.3634646869214
+        ]
+      },
+      "properties": {
+        "nref": "N188",
+        "nnamn": "HENE",
+        "idcadra": 200,
+        "btkod": "PLK",
+        "not1": "COMBI-KIOSKEN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8819895608401,
+          58.3820031120563
+        ]
+      },
+      "properties": {
+        "nref": "N189",
+        "nnamn": "KARLSLUND",
+        "idcadra": 151918,
+        "btkod": "BTH",
+        "not1": "Flyttad 2016",
+        "not3": "Ställverksbyte HSP 2017"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8281184321367,
+          58.4123183890526
+        ]
+      },
+      "properties": {
+        "nref": "N190",
+        "nnamn": "NATTVIOLEN",
+        "idcadra": 164,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8508246324079,
+          58.3902891580516
+        ]
+      },
+      "properties": {
+        "nref": "N191",
+        "nnamn": "ODEN",
+        "idcadra": 152853,
+        "btkod": "BTL",
+        "not3": "KOPPARBEKLÄDNAD"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8336079174357,
+          58.3794897382635
+        ]
+      },
+      "properties": {
+        "nref": "N192",
+        "nnamn": "SPADEN",
+        "idcadra": 174,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8652049740112,
+          58.3937144780188
+        ]
+      },
+      "properties": {
+        "nref": "N193",
+        "nnamn": "BOSTÄLLET",
+        "idcadra": 72,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8555754597147,
+          58.3917574287996
+        ]
+      },
+      "properties": {
+        "nref": "N194",
+        "nnamn": "Kurorten",
+        "idcadra": -1,
+        "btkod": "BTL",
+        "not1": "TKB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.792314169884,
+          58.3631339725437
+        ]
+      },
+      "properties": {
+        "nref": "N195",
+        "nnamn": "VATTENPASSET",
+        "idcadra": 153280,
+        "btkod": "BTL",
+        "not1": "TYP: LK2400   PRIS:144590:-",
+        "not3": "SADELTAK OCH BRÄDSTRUKTUR"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8477707762378,
+          58.3909618545898
+        ]
+      },
+      "properties": {
+        "nref": "N196",
+        "nnamn": "SANDTORGET",
+        "idcadra": 155564,
+        "btkod": "BTL",
+        "not1": "TYP: 2700 PRIS:311600:-",
+        "not3": "KOPPARBEKLÄDNAD"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8590811046342,
+          58.3901226360326
+        ]
+      },
+      "properties": {
+        "nref": "N197",
+        "nnamn": "EKEDAL",
+        "idcadra": 59481,
+        "btkod": "BTL",
+        "not1": "TYP: LK2400 PRIS:140180:-"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8547019473168,
+          58.406932626137
+        ]
+      },
+      "properties": {
+        "nref": "N198",
+        "nnamn": "FÖRSÄLJAREN",
+        "idcadra": 81,
+        "btkod": "BTL",
+        "not1": "TYP: MB 1408 G/BMN",
+        "not3": "PRIS: 142700:-"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8545068250416,
+          58.4045360493802
+        ]
+      },
+      "properties": {
+        "nref": "N199",
+        "nnamn": "KÖPMANNEN",
+        "idcadra": 53315,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8832263316451,
+          58.3872874646344
+        ]
+      },
+      "properties": {
+        "nref": "N200",
+        "nnamn": "RISATORP",
+        "idcadra": 46,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8442498127572,
+          58.387577685552
+        ]
+      },
+      "properties": {
+        "nref": "N201",
+        "nnamn": "Rönnen",
+        "idcadra": 151149,
+        "btkod": "BTH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8304011765978,
+          58.4131025840469
+        ]
+      },
+      "properties": {
+        "nref": "N202",
+        "nnamn": "KÄLLTORP",
+        "idcadra": 166,
+        "btkod": "BTL",
+        "not1": "TYP:NB12-8L3EE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8561460353481,
+          58.3940811418202
+        ]
+      },
+      "properties": {
+        "nref": "N203",
+        "nnamn": "AKADEMIKERN",
+        "idcadra": 92,
+        "btkod": "AB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8579541184916,
+          58.4223207749794
+        ]
+      },
+      "properties": {
+        "nref": "N204",
+        "nnamn": "KARSTORPSSJÖN",
+        "idcadra": 33,
+        "btkod": "PLK",
+        "not1": "TYP:NKP12-3L4EI  PLACERAD PÅ",
+        "not3": "PRIS:98100:-",
+        "not2": "KARSTORPS FRITIDSOMRÅDE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8240107827596,
+          58.3916346468109
+        ]
+      },
+      "properties": {
+        "nref": "N205",
+        "nnamn": "SKYTTESLEDET",
+        "idcadra": 186,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8412413309113,
+          58.392936610848
+        ]
+      },
+      "properties": {
+        "nref": "N206",
+        "nnamn": "MOTORN",
+        "idcadra": 143,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8479830802116,
+          58.3882140147816
+        ]
+      },
+      "properties": {
+        "nref": "N207",
+        "nnamn": "GEFION",
+        "idcadra": 124,
+        "btkod": "INB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8201738412601,
+          58.3682297024646
+        ]
+      },
+      "properties": {
+        "nref": "N208",
+        "nnamn": "NÖTKRÅKAN",
+        "idcadra": 193,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8776904171083,
+          58.3747975365196
+        ]
+      },
+      "properties": {
+        "nref": "N209",
+        "nnamn": "Snötippen",
+        "idcadra": 154756,
+        "btkod": "SS",
+        "not1": "TYP: LUNA 2S"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8249828965497,
+          58.3802121935972
+        ]
+      },
+      "properties": {
+        "nref": "N210",
+        "nnamn": "STENULLEN",
+        "idcadra": 33783,
+        "btkod": "INB",
+        "not1": "AV: 403"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.9017435220813,
+          58.4160231586003
+        ]
+      },
+      "properties": {
+        "nref": "N211",
+        "nnamn": "Spannen",
+        "idcadra": 147326,
+        "btkod": "BTL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8937615326832,
+          58.4137136553012
+        ]
+      },
+      "properties": {
+        "nref": "N212",
+        "nnamn": "Markisen",
+        "idcadra": 149850,
+        "btkod": "BTL",
+        "not1": "TKB"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8182318303381,
+          58.4030511421597
+        ]
+      },
+      "properties": {
+        "nref": "N213",
+        "nnamn": "Skidstadion",
+        "idcadra": 155161,
+        "btkod": "BTL",
+        "not1": "fd isstadion"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8442180331107,
+          58.4281760948489
+        ]
+      },
+      "properties": {
+        "nref": "N214",
+        "nnamn": "KSS BYGG",
+        "idcadra": 155973
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8442180331107,
+          58.4281760948489
+        ]
+      },
+      "properties": {
+        "nref": "N215",
+        "nnamn": "BADTUNNAN",
+        "idcadra": -1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8518418991927,
+          58.4048755783037
+        ]
+      },
+      "properties": {
+        "nref": "NF",
+        "nnamn": "NORRA FÖRDELNINGSSTA",
+        "idcadra": 153828
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8417913489538,
+          58.3932314180507
+        ]
+      },
+      "properties": {
+        "nref": "OT72",
+        "idcadra": 140
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8585562252554,
+          58.4327334981976
+        ]
+      },
+      "properties": {
+        "nref": "RF",
+        "nnamn": "RYDS FÖRDELNINGSSTAT",
+        "idcadra": 30,
+        "btkod": "HS"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8756945760937,
+          58.3896171186499
+        ]
+      },
+      "properties": {
+        "nref": "ÖF",
+        "nnamn": "ÖF",
+        "idcadra": 151947
+      }
     }
-}
-var jsonTest = new L.GeoJSON.AJAX(["colleges.geojson","counties.geojson"],{onEachFeature:popUp}).addTo(m);
-</script>
+  ]
+};
 
 
-    </body>
+    
+    
+// load a tile layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    
+ //geojson 
+new L.GeoJSON(stationer).addTo(map);
+ 
+
+  </script>
+</body>
 </html>
